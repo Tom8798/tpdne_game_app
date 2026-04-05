@@ -15,4 +15,4 @@ def init_firebase():
 
 def get_game_ref(game_id: str):
     """Retourne la référence Firebase pour une partie donnée."""
-    return db.reference(f"/games/{game_id}")  
+    return db.reference(f"/games/{game_id}")
