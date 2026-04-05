@@ -322,21 +322,34 @@ def show_image(img_b64: str):
             unsafe_allow_html=True
         )
 
+
+
+
+
+
+
+
 def punchline_card(fiche: dict, author: str,
                    nb_votes: int = None, winner: bool = False,
                    medal: str = ""):
-    css = "punchline-card-winner" if winner else "punchline-card"
-    votes_str = f" — <strong>{nb_votes} vote(s)</strong>" if nb_votes is not None else ""
+    """
+    Affiche une fiche de punchline en HTML avec le style correct.
+    unsafe_allow_html=True nécessaire pour que les balises soient interprétées.
+    """
+    css_class = "punchline-card-winner" if winner else "punchline-card"
+    votes_html = f'<div class="pc-votes">{nb_votes} vote(s)</div>' if nb_votes is not None else ""
+    medal_html = f"{medal} " if medal else ""
+    
     st.markdown(f"""
-<div class="{css}">
-    <div class="punchline-identity">
-        {medal} {fiche.get('prenom', '?')}, {fiche.get('age', '?')} ans
-        {votes_str}
-    </div>
-    <div class="punchline-job">💼 {fiche.get('metier', '?')} · par <em>{author}</em></div>
-    <p class="punchline-text">« {fiche.get('punchline', '?')} »</p>
+<div class="{css_class}">
+    <div class="pc-identity">{medal_html}{fiche.get('prenom', '?')}, {fiche.get('age', '?')} ans</div>
+    <div class="pc-job">💼 {fiche.get('metier', '?')} &nbsp;·&nbsp; par <em>{author}</em></div>
+    <p class="pc-quote">« {fiche.get('punchline', '?')} »</p>
+    {votes_html}
 </div>
 """, unsafe_allow_html=True)
+    
+    
 
 def score_table(scores: dict, highlight_winners=None):
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
