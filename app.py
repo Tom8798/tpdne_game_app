@@ -73,11 +73,32 @@ st.markdown(f"""
 section[data-testid="stSidebar"] {{
     display: none;
 }}
+
 .block-container {{
     max-width: 520px !important;
-    padding: 0.5rem 1rem 5rem 1rem !important;
+    padding: 3rem 1rem 5rem 1rem !important;
     background-color: {BG} !important;
 }}
+
+
+/* Cache le header Streamlit (bandeau avec logo et menu) */
+header[data-testid="stHeader"] {{
+    display: none !important;
+}}
+
+/* Cache aussi le bouton "Deploy" et la toolbar */
+.stToolbar {{
+    display: none !important;
+}}
+[data-testid="stToolbar"] {{
+    display: none !important;
+}}
+
+/* Compense l'espace que le header prenait */
+.stApp > div:first-child {{
+    padding-top: 0 !important;
+}}
+
 
 /* ── Texte global ── */
 body, p, div, span, label {{
@@ -410,12 +431,18 @@ def update_game(data: dict):
 
 def theme_toggle():
     """Petit bouton lune/soleil en haut à droite."""
+    dark = st.session_state.dark_mode  # important : on lit le state à chaque run
     icon = "☀️ Clair" if dark else "🌙 Sombre"
+
+    # 🔥 clé UNIQUE pour éviter les conflits Streamlit
+    unique_key = f"theme_btn_{st.session_state.get('game_id','no_game')}_{st.session_state.get('home_view','main')}"
+
     col = st.columns([4, 1])[1]
     with col:
-        if st.button(icon, key="theme_btn"):
+        if st.button(icon, key=unique_key):
             st.session_state.dark_mode = not dark
             st.rerun()
+
 
 def info_box(text):
     st.markdown(
@@ -506,7 +533,6 @@ def score_table(scores: dict, highlight_winners=None):
 # ── ACCUEIL ───────────────────────────────────────────────────────────────────
 
 def screen_home():
-    theme_toggle()
     view = st.session_state.home_view
 
     if view == "menu":
