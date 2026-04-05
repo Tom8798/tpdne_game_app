@@ -13,260 +13,456 @@ st.set_page_config(
     layout="centered"
 )
 
+# ── CSS responsive mobile-first ───────────────────────────────────────────────
 st.markdown("""
 <style>
-    /* ── Boîtes custom ── */
-    .custom-info {
-        background-color: #e8f0fe;
-        border-left: 4px solid #4285f4;
-        border-radius: 6px;
-        padding: 12px 16px;
-        margin: 8px 0;
-        color: #1a1a2e;
-    }
-    .custom-success {
-        background-color: #e6f4ea;
-        border-left: 4px solid #34a853;
-        border-radius: 6px;
-        padding: 12px 16px;
-        margin: 8px 0;
-        color: #1a1a2e;
-    }
-    .custom-wait {
-        background-color: #e8f0fe;
-        border-left: 4px solid #4285f4;
-        border-radius: 6px;
-        padding: 12px 16px;
-        margin: 8px 0;
-        color: #1a1a2e;
-    }
-    .punchline-card {
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-radius: 10px;
-        padding: 16px 20px;
-        margin: 8px 0;
-    }
-    .progress-label {
-        font-size: 0.85em;
-        color: #5f6368;
-        margin-bottom: 4px;
-    }
+/* ── Reset & base ── */
+* { box-sizing: border-box; }
 
-    /* ── Page d'accueil ── */
-    .home-hero {
-        text-align: center;
-        padding: 40px 0 20px 0;
-    }
-    .home-hero h1 {
-        font-size: 3em;
-        margin-bottom: 0;
-    }
-    .home-hero p {
-        font-size: 1.15em;
-        color: #5f6368;
-        margin-top: 8px;
-    }
-    .home-card {
-        background: #ffffff;
-        border: 1.5px solid #d2e3fc;
-        border-radius: 16px;
-        padding: 32px 28px;
-        margin: 12px 0;
-        box-shadow: 0 2px 12px rgba(66,133,244,0.07);
-        text-align: center;
-    }
-    .home-card h2 {
-        font-size: 1.4em;
-        margin-bottom: 6px;
-        color: #1a1a2e;
-    }
-    .home-card p {
-        color: #5f6368;
-        font-size: 0.95em;
-        margin-bottom: 20px;
-    }
+/* ── Largeur max centrée ── */
+.block-container {
+    max-width: 520px !important;
+    padding: 1rem 1rem 4rem 1rem !important;
+}
 
-    /* ── Boutons principaux en bleu ── */
-    div.stButton > button[kind="primary"] {
-        background-color: #4285f4 !important;
-        border-color: #4285f4 !important;
-        color: white !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
-        padding: 10px 0 !important;
-        transition: background 0.2s;
-    }
-    div.stButton > button[kind="primary"]:hover {
-        background-color: #3367d6 !important;
-        border-color: #3367d6 !important;
-    }
-    /* Boutons secondaires (sans type="primary") aussi en bleu doux */
-    div.stButton > button:not([kind="primary"]) {
-        border-color: #4285f4 !important;
-        color: #4285f4 !important;
-        border-radius: 8px !important;
-    }
+/* ── Hero accueil ── */
+.hero {
+    text-align: center;
+    padding: 32px 0 24px 0;
+}
+.hero-emoji {
+    font-size: 56px;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+.hero-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 8px 0;
+}
+.hero-sub {
+    font-size: 0.95em;
+    color: #5f6368;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ── Cards boutons accueil ── */
+.menu-card {
+    background: #ffffff;
+    border: 1.5px solid #d2e3fc;
+    border-radius: 16px;
+    padding: 24px 20px 16px 20px;
+    margin: 10px 0;
+    text-align: center;
+    transition: box-shadow 0.2s;
+}
+.menu-card:hover { box-shadow: 0 4px 18px rgba(66,133,244,0.13); }
+.menu-card-emoji { font-size: 32px; margin-bottom: 6px; }
+.menu-card-title {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 4px 0;
+}
+.menu-card-desc {
+    font-size: 0.88em;
+    color: #5f6368;
+    margin: 0 0 16px 0;
+}
+
+/* ── Boutons ── */
+div.stButton > button {
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    font-size: 1em !important;
+    padding: 12px 0 !important;
+    width: 100%;
+    transition: all 0.2s !important;
+}
+div.stButton > button[kind="primary"] {
+    background: #4285f4 !important;
+    border-color: #4285f4 !important;
+    color: white !important;
+}
+div.stButton > button[kind="primary"]:hover {
+    background: #3367d6 !important;
+    border-color: #3367d6 !important;
+}
+div.stButton > button:not([kind="primary"]) {
+    border-color: #4285f4 !important;
+    color: #4285f4 !important;
+    background: white !important;
+}
+
+/* ── Inputs ── */
+div.stTextInput > div > div > input,
+div.stTextArea > div > div > textarea,
+div.stNumberInput > div > div > input {
+    border-radius: 10px !important;
+    font-size: 1em !important;
+    padding: 10px 14px !important;
+}
+
+/* ── Code de partie (gros et lisible) ── */
+.game-code {
+    background: #e8f0fe;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    margin: 12px 0;
+}
+.game-code-label {
+    font-size: 0.82em;
+    color: #4285f4;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.game-code-value {
+    font-size: 2.6em;
+    font-weight: 800;
+    color: #1a1a2e;
+    letter-spacing: 0.18em;
+    line-height: 1;
+}
+
+/* ── Boîtes de statut ── */
+.box-info {
+    background: #e8f0fe;
+    border-left: 4px solid #4285f4;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    font-size: 0.93em;
+    color: #1a1a2e;
+}
+.box-success {
+    background: #e6f4ea;
+    border-left: 4px solid #34a853;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    font-size: 0.93em;
+    color: #1a1a2e;
+}
+.box-wait {
+    background: #e8f0fe;
+    border-left: 4px solid #4285f4;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    font-size: 0.93em;
+    color: #1a1a2e;
+}
+
+/* ── Carte joueur lobby ── */
+.player-chip {
+    display: inline-block;
+    background: #f1f3f4;
+    border-radius: 20px;
+    padding: 6px 14px;
+    margin: 4px 4px 4px 0;
+    font-size: 0.93em;
+    color: #1a1a2e;
+    font-weight: 500;
+}
+
+/* ── Image IA ── */
+.img-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 12px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+.img-wrapper img { width: 100%; display: block; }
+
+/* ── Carte punchline ── */
+.punchline-card {
+    background: #ffffff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin: 10px 0;
+}
+.punchline-card-winner {
+    background: #e6f4ea;
+    border: 1.5px solid #34a853;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin: 10px 0;
+}
+.punchline-identity {
+    font-size: 1em;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 4px;
+}
+.punchline-job {
+    font-size: 0.88em;
+    color: #5f6368;
+    margin-bottom: 10px;
+}
+.punchline-text {
+    font-size: 1.05em;
+    font-style: italic;
+    color: #1a1a2e;
+    border-left: 3px solid #4285f4;
+    padding-left: 10px;
+    margin: 0;
+}
+
+/* ── Barre de progression ── */
+.prog-label {
+    font-size: 0.82em;
+    color: #5f6368;
+    margin-bottom: 4px;
+    text-align: right;
+}
+
+/* ── Score tableau ── */
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin: 5px 0;
+    background: #f8f9fa;
+    font-size: 0.97em;
+}
+.score-row-top {
+    background: #e8f0fe;
+    font-weight: 700;
+}
+.score-pts {
+    font-weight: 700;
+    color: #4285f4;
+}
+
+/* ── Tour badge ── */
+.round-badge {
+    display: inline-block;
+    background: #4285f4;
+    color: white;
+    border-radius: 20px;
+    padding: 3px 14px;
+    font-size: 0.82em;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* ── Footer ── */
+.footer {
+    text-align: center;
+    color: #9aa0a6;
+    font-size: 0.78em;
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1px solid #f1f3f4;
+}
+
+/* ── Bouton retour ── */
+.back-btn { margin-bottom: 8px; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Helpers UI ───────────────────────────────────────────────────────────────
+# ── Helpers UI ────────────────────────────────────────────────────────────────
 
 def info_box(text):
-    st.markdown(f'<div class="custom-info">ℹ️ {text}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="box-info">ℹ️ {text}</div>', unsafe_allow_html=True)
 
 def success_box(text):
-    st.markdown(f'<div class="custom-success">✅ {text}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="box-success">✅ {text}</div>', unsafe_allow_html=True)
 
 def wait_box(text):
-    st.markdown(f'<div class="custom-wait">⏳ {text}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="box-wait">⏳ {text}</div>', unsafe_allow_html=True)
 
 def safe_progress(done: int, total: int, label: str = ""):
     ratio = min(done / max(total, 1), 1.0)
     if label:
-        st.markdown(f'<div class="progress-label">{label}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="prog-label">{label}</div>', unsafe_allow_html=True)
     st.progress(ratio)
 
-# ── Firebase ─────────────────────────────────────────────────────────────────
+def round_badge(current, total):
+    st.markdown(
+        f'<div class="round-badge">Tour {current} / {total}</div>',
+        unsafe_allow_html=True
+    )
+
+def show_image(img_b64: str):
+    """Affiche l'image IA avec style mobile."""
+    if img_b64:
+        img_bytes = base64.b64decode(img_b64)
+        b64_str = base64.b64encode(img_bytes).decode()
+        st.markdown(
+            f'<div class="img-wrapper">'
+            f'<img src="data:image/jpeg;base64,{b64_str}"/>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
+def punchline_card(fiche: dict, author: str,
+                   nb_votes: int = None, winner: bool = False,
+                   medal: str = ""):
+    css = "punchline-card-winner" if winner else "punchline-card"
+    votes_str = f" — <strong>{nb_votes} vote(s)</strong>" if nb_votes is not None else ""
+    st.markdown(f"""
+<div class="{css}">
+    <div class="punchline-identity">
+        {medal} {fiche.get('prenom', '?')}, {fiche.get('age', '?')} ans
+        {votes_str}
+    </div>
+    <div class="punchline-job">💼 {fiche.get('metier', '?')} · par <em>{author}</em></div>
+    <p class="punchline-text">« {fiche.get('punchline', '?')} »</p>
+</div>
+""", unsafe_allow_html=True)
+
+def score_table(scores: dict, highlight_winners=None):
+    sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    medals = ["🥇", "🥈", "🥉"]
+    max_pts = sorted_scores[0][1] if sorted_scores else 0
+    for rank, (p, s) in enumerate(sorted_scores):
+        is_top = (s == max_pts)
+        css = "score-row score-row-top" if is_top else "score-row"
+        medal = medals[rank] if rank < 3 else f"{rank+1}."
+        winner_tag = " 🏆" if highlight_winners and p in highlight_winners else ""
+        st.markdown(f"""
+<div class="{css}">
+    <span>{medal} {p}{winner_tag}</span>
+    <span class="score-pts">{s} pts</span>
+</div>
+""", unsafe_allow_html=True)
+
+# ── Firebase ──────────────────────────────────────────────────────────────────
 
 init_firebase()
 
-if "game_id" not in st.session_state:
-    st.session_state.game_id = None
-if "player_name" not in st.session_state:
-    st.session_state.player_name = None
-if "is_host" not in st.session_state:
-    st.session_state.is_host = False
-if "home_view" not in st.session_state:
-    # "menu" | "create" | "join"
-    st.session_state.home_view = "menu"
+for key, default in [
+    ("game_id", None),
+    ("player_name", None),
+    ("is_host", False),
+    ("home_view", "menu"),
+]:
+    if key not in st.session_state:
+        st.session_state[key] = default
 
 def get_game() -> dict:
-    ref = get_game_ref(st.session_state.game_id)
-    return ref.get() or {}
+    return get_game_ref(st.session_state.game_id).get() or {}
 
 def update_game(data: dict):
-    ref = get_game_ref(st.session_state.game_id)
-    ref.update(data)
+    get_game_ref(st.session_state.game_id).update(data)
 
-# ── ÉCRAN D'ACCUEIL ───────────────────────────────────────────────────────────
+# ── ACCUEIL ───────────────────────────────────────────────────────────────────
 
 def screen_home():
-    # Hero
-    st.markdown("""
-    <div class="home-hero">
-        <h1>🎭 Punchline IA</h1>
-        <p>Inventez l'identité et la réplique des visages générés par IA.<br>
-        Le plus drôle remporte la manche !</p>
-    </div>
-    """, unsafe_allow_html=True)
-
     view = st.session_state.home_view
 
-    # ── Menu principal ────────────────────────────────────────────────────────
     if view == "menu":
-        col1, col2 = st.columns(2, gap="large")
-
-        with col1:
-            st.markdown("""
-            <div class="home-card">
-                <h2>🎲 Nouvelle partie</h2>
-                <p>Crée une partie et invite tes amis avec un code.</p>
-            </div>
-            """, unsafe_allow_html=True)
-            if st.button("Créer une partie", use_container_width=True, type="primary"):
-                st.session_state.home_view = "create"
-                st.rerun()
-
-        with col2:
-            st.markdown("""
-            <div class="home-card">
-                <h2>🚪 Rejoindre</h2>
-                <p>Entre le code donné par l'hôte pour rejoindre la partie.</p>
-            </div>
-            """, unsafe_allow_html=True)
-            if st.button("Rejoindre une partie", use_container_width=True, type="primary"):
-                st.session_state.home_view = "join"
-                st.rerun()
-
-        st.markdown("---")
         st.markdown("""
-        <div style="text-align:center; color:#9aa0a6; font-size:0.85em;">
-            🖼️ Images générées par <a href="https://thispersondoesnotexist.com" 
-            target="_blank" style="color:#4285f4;">thispersondoesnotexist.com</a>
-        </div>
-        """, unsafe_allow_html=True)
+<div class="hero">
+    <div class="hero-emoji">🎭</div>
+    <h1 class="hero-title">Punchline IA</h1>
+    <p class="hero-sub">Inventez l'identité et la réplique<br>
+    de visages générés par intelligence artificielle.<br>
+    Le plus drôle remporte la manche !</p>
+</div>
+""", unsafe_allow_html=True)
 
-    # ── Formulaire Créer ──────────────────────────────────────────────────────
+        st.markdown("""
+<div class="menu-card">
+    <div class="menu-card-emoji">🎲</div>
+    <p class="menu-card-title">Nouvelle partie</p>
+    <p class="menu-card-desc">Crée une partie et partage le code à tes amis.</p>
+</div>
+""", unsafe_allow_html=True)
+        if st.button("Créer une partie", use_container_width=True, type="primary"):
+            st.session_state.home_view = "create"
+            st.rerun()
+
+        st.markdown("""
+<div class="menu-card">
+    <div class="menu-card-emoji">🚪</div>
+    <p class="menu-card-title">Rejoindre une partie</p>
+    <p class="menu-card-desc">Entre le code donné par l'hôte.</p>
+</div>
+""", unsafe_allow_html=True)
+        if st.button("Rejoindre une partie", use_container_width=True):
+            st.session_state.home_view = "join"
+            st.rerun()
+
+        st.markdown("""
+<div class="footer">
+    Images · <a href="https://thispersondoesnotexist.com" 
+    style="color:#4285f4;">thispersondoesnotexist.com</a>
+</div>
+""", unsafe_allow_html=True)
+
     elif view == "create":
-        if st.button("← Retour", key="back_create"):
+        st.markdown('<div class="back-btn">', unsafe_allow_html=True)
+        if st.button("← Retour"):
             st.session_state.home_view = "menu"
             st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown("## 🎲 Créer une partie")
         info_box("Tu seras l'hôte. Tes amis rejoindront avec le code affiché dans le lobby.")
 
-        player_name = st.text_input("Ton prénom", max_chars=20, key="host_name")
+        name = st.text_input("Ton prénom", max_chars=20, key="host_name",
+                             placeholder="Ex : Sophie")
         num_rounds = st.slider("Nombre de tours", min_value=3, max_value=20, value=5)
 
-        st.markdown("---")
         if st.button("🚀 Créer la partie", use_container_width=True, type="primary"):
-            if not player_name.strip():
+            if not name.strip():
                 st.error("Entre ton prénom !")
                 return
             game_id = generate_game_id()
-            game_state = create_game_state(player_name.strip(), num_rounds)
-            get_game_ref(game_id).set(game_state)
+            get_game_ref(game_id).set(create_game_state(name.strip(), num_rounds))
             st.session_state.game_id = game_id
-            st.session_state.player_name = player_name.strip()
+            st.session_state.player_name = name.strip()
             st.session_state.is_host = True
             st.session_state.home_view = "menu"
             st.rerun()
 
-    # ── Formulaire Rejoindre ──────────────────────────────────────────────────
     elif view == "join":
-        if st.button("← Retour", key="back_join"):
+        st.markdown('<div class="back-btn">', unsafe_allow_html=True)
+        if st.button("← Retour"):
             st.session_state.home_view = "menu"
             st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown("## 🚪 Rejoindre une partie")
-        info_box("Demande le code à 6 caractères à l'hôte de la partie.")
+        info_box("Demande le code 6 caractères à l'hôte.")
 
-        game_id_input = st.text_input(
-            "Code de partie", max_chars=6, key="join_code",
-            placeholder="Ex : AZ48KP"
-        ).upper().strip()
-        player_name = st.text_input("Ton prénom", max_chars=20, key="join_name")
+        code = st.text_input("Code de partie", max_chars=6,
+                             placeholder="Ex : AZ48KP", key="join_code").upper().strip()
+        name = st.text_input("Ton prénom", max_chars=20,
+                             placeholder="Ex : Lucas", key="join_name")
 
-        st.markdown("---")
         if st.button("✅ Rejoindre", use_container_width=True, type="primary"):
-            if not game_id_input or not player_name.strip():
+            if not code or not name.strip():
                 st.error("Remplis tous les champs !")
                 return
-
-            game_ref = get_game_ref(game_id_input)
+            game_ref = get_game_ref(code)
             game = game_ref.get()
-
             if not game:
                 st.error("Partie introuvable. Vérifie le code.")
                 return
             if game.get("status") != "waiting":
                 st.error("Cette partie a déjà commencé.")
                 return
-
-            name = player_name.strip()
-            existing = game.get("players", [])
-            if name in existing:
-                st.error(f"Le prénom « {name} » est déjà pris. Choisis-en un autre.")
+            n = name.strip()
+            if n in game.get("players", []):
+                st.error(f"Le prénom « {n} » est déjà pris.")
                 return
-
-            updated_players = existing + [name]
+            updated_players = game.get("players", []) + [n]
             updated_scores = game.get("scores", {})
-            updated_scores[name] = 0
+            updated_scores[n] = 0
             game_ref.update({"players": updated_players, "scores": updated_scores})
-
-            st.session_state.game_id = game_id_input
-            st.session_state.player_name = name
+            st.session_state.game_id = code
+            st.session_state.player_name = n
             st.session_state.is_host = False
             st.session_state.home_view = "menu"
             st.rerun()
@@ -274,20 +470,28 @@ def screen_home():
 # ── LOBBY ─────────────────────────────────────────────────────────────────────
 
 def screen_lobby(game: dict):
-    game_id = st.session_state.game_id
     players = game.get("players", [])
+    game_id = st.session_state.game_id
 
-    st.title("🎭 Salle d'attente")
-    st.markdown(f"### Code de la partie : `{game_id}`")
-    info_box("Partage ce code avec tes amis. Ils peuvent rejoindre jusqu'au lancement.")
+    st.markdown("## 🎭 Salle d'attente")
 
-    st.subheader(f"Joueurs connectés ({len(players)})")
-    for p in players:
-        host_tag = " 👑" if p == game.get("host") else ""
-        st.markdown(f"- **{p}**{host_tag}")
+    # Code en grand, facile à lire et recopier sur mobile
+    st.markdown(f"""
+<div class="game-code">
+    <div class="game-code-label">Code de la partie</div>
+    <div class="game-code-value">{game_id}</div>
+</div>
+""", unsafe_allow_html=True)
 
+    info_box("Partage ce code. Tes amis peuvent rejoindre jusqu'au lancement.")
+
+    st.markdown(f"**Joueurs connectés ({len(players)})**")
+    chips = "".join(
+        f'<span class="player-chip">{"👑 " if p == game.get("host") else ""}{p}</span>'
+        for p in players
+    )
+    st.markdown(f'<div style="margin:8px 0 16px 0">{chips}</div>', unsafe_allow_html=True)
     st.caption(f"Nombre de tours : **{game.get('num_rounds', 5)}**")
-    st.divider()
 
     if st.session_state.is_host:
         if len(players) < 2:
@@ -296,17 +500,14 @@ def screen_lobby(game: dict):
             if st.button("🚀 Lancer la partie !", use_container_width=True, type="primary"):
                 with st.spinner("Chargement du premier visage IA..."):
                     try:
-                        img_bytes = fetch_random_face()
-                        img_b64 = base64.b64encode(img_bytes).decode()
+                        img_b64 = base64.b64encode(fetch_random_face()).decode()
                         update_game({
                             "status": "writing",
                             "image_data": img_b64,
-                            "punchlines": {},
-                            "votes": {},
-                            "round_winner": None
+                            "punchlines": {}, "votes": {}, "round_winner": None
                         })
                     except Exception as e:
-                        st.error(f"Erreur chargement image : {e}")
+                        st.error(f"Erreur : {e}")
         time.sleep(3)
         st.rerun()
     else:
@@ -323,61 +524,52 @@ def screen_writing(game: dict):
     punchlines = game.get("punchlines", {}) or {}
     players = game.get("players", [])
 
-    st.title(f"✍️ Tour {current_round} / {num_rounds}")
-    st.caption("Regardez ce visage et inventez son identité + sa réplique !")
+    round_badge(current_round, num_rounds)
+    st.markdown("## ✍️ Qui est cette personne ?")
 
-    img_b64 = game.get("image_data")
-    if img_b64:
-        img_bytes = base64.b64decode(img_b64)
-        st.image(img_bytes, width=400)
-
-    st.divider()
+    show_image(game.get("image_data"))
 
     if player not in punchlines:
-        st.subheader("Qui est cette personne selon toi ?")
-
+        st.markdown("---")
         col1, col2 = st.columns(2)
         with col1:
-            prenom = st.text_input("Prénom", max_chars=30, key=f"prenom_{current_round}",
-                                   placeholder="Ex: Jean-Michel")
+            prenom = st.text_input("Prénom", max_chars=30,
+                                   key=f"prenom_{current_round}",
+                                   placeholder="Jean-Michel")
+        with col2:
             age = st.number_input("Âge", min_value=1, max_value=120,
                                   value=35, key=f"age_{current_round}")
-        with col2:
-            metier = st.text_input("Métier", max_chars=50, key=f"metier_{current_round}",
-                                   placeholder="Ex: Vendeur de matelas")
 
-        punchline = st.text_area(
-            "Sa réplique signature 💬",
-            max_chars=200, height=80,
-            key=f"punchline_{current_round}",
-            placeholder="Ex: « Non mais tu me prends pour qui là ? »"
-        )
+        metier = st.text_input("Métier", max_chars=50,
+                               key=f"metier_{current_round}",
+                               placeholder="Vendeur de matelas")
+
+        punchline = st.text_area("💬 Sa réplique signature",
+                                 max_chars=200, height=90,
+                                 key=f"punchline_{current_round}",
+                                 placeholder="« Non mais tu me prends pour qui là ? »")
 
         if st.button("✅ Valider ma fiche", use_container_width=True, type="primary"):
             if not prenom.strip() or not metier.strip() or not punchline.strip():
                 st.error("Remplis tous les champs !")
             else:
-                fiche = {
+                get_game_ref(st.session_state.game_id).child("punchlines").child(player).set({
                     "prenom": prenom.strip(),
                     "age": int(age),
                     "metier": metier.strip(),
                     "punchline": punchline.strip()
-                }
-                ref = get_game_ref(st.session_state.game_id)
-                ref.child("punchlines").child(player).set(fiche)
+                })
                 st.rerun()
     else:
         fiche = punchlines[player]
         success_box(
-            f"Fiche enregistrée — "
-            f"<strong>{fiche.get('prenom')}</strong>, {fiche.get('age')} ans, "
-            f"<em>{fiche.get('metier')}</em> — « {fiche.get('punchline')} »"
+            f"<strong>{fiche['prenom']}</strong>, {fiche['age']} ans, "
+            f"<em>{fiche['metier']}</em> — « {fiche['punchline']} »"
         )
-
         count_done = len(punchlines)
         count_total = len(players)
         safe_progress(count_done, count_total,
-                      f"{count_done}/{count_total} joueurs ont rempli leur fiche")
+                      f"{count_done}/{count_total} joueurs prêts")
 
         if count_done >= count_total:
             if st.button("➡️ Passer au vote !",
@@ -386,13 +578,14 @@ def screen_writing(game: dict):
                     update_game({"status": "voting"})
                 st.rerun()
         else:
-            wait_box(f"En attente des autres joueurs... ({count_done}/{count_total})")
+            wait_box(f"En attente des autres... ({count_done}/{count_total})")
             time.sleep(3)
             st.rerun()
 
 # ── PHASE VOTE ────────────────────────────────────────────────────────────────
 
 def screen_voting(game: dict):
+    import random
     player = st.session_state.player_name
     current_round = game.get("current_round", 1)
     num_rounds = game.get("num_rounds", 5)
@@ -400,59 +593,46 @@ def screen_voting(game: dict):
     votes = game.get("votes", {}) or {}
     players = game.get("players", [])
 
-    st.title(f"🗳️ Tour {current_round} / {num_rounds} — Vote !")
-    st.caption("Quelle fiche t'a le plus convaincu ou fait rire ?")
+    round_badge(current_round, num_rounds)
+    st.markdown("## 🗳️ Vote pour ta fiche préférée !")
 
-    img_b64 = game.get("image_data")
-    if img_b64:
-        img_bytes = base64.b64decode(img_b64)
-        st.image(img_bytes, width=400)
-
-    st.divider()
+    show_image(game.get("image_data"))
 
     if player not in votes:
-        st.subheader("Les fiches des joueurs :")
-
-        import random
+        st.markdown("---")
         items = list(punchlines.items())
         random.seed(f"{st.session_state.game_id}_{current_round}")
         random.shuffle(items)
 
         for author, fiche in items:
-            st.markdown(f"""
-<div class="punchline-card">
-    <strong>🧑 {fiche.get('prenom', '?')}</strong>, {fiche.get('age', '?')} ans —
-    <em>{fiche.get('metier', '?')}</em><br><br>
-    💬 <em>« {fiche.get('punchline', '?')} »</em>
-</div>
-""", unsafe_allow_html=True)
+            punchline_card(fiche, author)
             if author != player:
-                if st.button("👍 Voter pour cette fiche", key=f"vote_{author}"):
-                    ref = get_game_ref(st.session_state.game_id)
-                    ref.child("votes").child(player).set(author)
+                if st.button("👍 Voter pour cette fiche",
+                             key=f"vote_{author}",
+                             use_container_width=True):
+                    get_game_ref(st.session_state.game_id)\
+                        .child("votes").child(player).set(author)
                     st.rerun()
             else:
-                st.caption("_(c'est ta fiche)_")
-            st.divider()
-
+                st.caption("_(c'est ta fiche — tu ne peux pas voter pour toi-même)_")
+            st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
     else:
         success_box("Tu as voté !")
-
         count_voted = len(votes)
         count_total = len(players)
         safe_progress(count_voted, count_total,
-                      f"{count_voted}/{count_total} joueurs ont voté")
+                      f"{count_voted}/{count_total} votes reçus")
 
         if count_voted >= count_total:
-            if st.button("📊 Voir les résultats du tour",
+            if st.button("📊 Voir les résultats",
                          use_container_width=True, type="primary"):
                 if get_game().get("status") == "voting":
                     winners, vote_counts = compute_round_winner(punchlines, votes)
                     scores = game.get("scores", {p: 0 for p in players})
                     if winners:
-                        points_du_tour = max(vote_counts.values())
+                        pts = max(vote_counts.values())
                         for w in winners:
-                            scores[w] = scores.get(w, 0) + points_du_tour
+                            scores[w] = scores.get(w, 0) + pts
                     update_game({
                         "status": "results",
                         "round_winner": winners,
@@ -464,7 +644,7 @@ def screen_voting(game: dict):
             time.sleep(3)
             st.rerun()
 
-# ── PHASE RÉSULTATS ───────────────────────────────────────────────────────────
+# ── RÉSULTATS ─────────────────────────────────────────────────────────────────
 
 def screen_results(game: dict):
     current_round = game.get("current_round", 1)
@@ -474,75 +654,44 @@ def screen_results(game: dict):
     scores = game.get("scores", {}) or {}
     winners = game.get("round_winner") or []
     players = game.get("players", [])
-
-    # Compatibilité si round_winner est encore une string (ancienne partie)
     if isinstance(winners, str):
         winners = [winners]
 
-    st.title(f"🏆 Résultats — Tour {current_round}")
+    round_badge(current_round, num_rounds)
+    st.markdown("## 🏆 Résultats du tour")
 
-    img_b64 = game.get("image_data")
-    if img_b64:
-        img_bytes = base64.b64decode(img_b64)
-        col_img, col_win = st.columns([1, 1])
-        with col_img:
-            st.image(img_bytes, width=280)
-        with col_win:
-            if winners:
-                if len(winners) == 1:
-                    w = winners[0]
-                    fiche = punchlines.get(w, {})
-                    st.markdown(f"### 🥇 Vainqueur : **{w}**")
-                    st.markdown(f"""
-<div class="custom-success">
-    <strong>{fiche.get('prenom')}</strong>, {fiche.get('age')} ans,
-    <em>{fiche.get('metier')}</em><br><br>
-    💬 <em>« {fiche.get('punchline')} »</em>
-</div>
-""", unsafe_allow_html=True)
-                else:
-                    # Égalité
-                    noms = " & ".join(f"**{w}**" for w in winners)
-                    st.markdown(f"### 🤝 Égalité ! {noms}")
-                    for w in winners:
-                        fiche = punchlines.get(w, {})
-                        st.markdown(f"""
-<div class="custom-success">
-    <em>{w}</em> — <strong>{fiche.get('prenom')}</strong>,
-    {fiche.get('age')} ans, <em>{fiche.get('metier')}</em><br>
-    💬 <em>« {fiche.get('punchline')} »</em>
-</div>
-""", unsafe_allow_html=True)
+    show_image(game.get("image_data"))
 
-    st.subheader("Toutes les fiches du tour")
+    # Annonce vainqueur(s)
+    if winners:
+        if len(winners) == 1:
+            success_box(f"🥇 Vainqueur : <strong>{winners[0]}</strong> !")
+        else:
+            noms = " & ".join(f"<strong>{w}</strong>" for w in winners)
+            success_box(f"🤝 Égalité ! {noms} — points partagés !")
+
+    # Toutes les fiches classées
+    st.markdown("---")
+    st.markdown("**Toutes les fiches**")
     _, vote_counts = compute_round_winner(punchlines, votes)
     sorted_fiches = sorted(punchlines.items(),
                            key=lambda x: vote_counts.get(x[0], 0), reverse=True)
     medals = ["🥇", "🥈", "🥉"]
 
     for rank, (author, fiche) in enumerate(sorted_fiches):
-        nb_votes = vote_counts.get(author, 0)
-        medal = medals[rank] if rank < 3 else f"{rank+1}."
-        is_winner = author in winners
-        card_style = "custom-success" if is_winner else "punchline-card"
-        st.markdown(f"""
-<div class="{card_style}">
-    {medal} <strong>{author}</strong> — {nb_votes} vote(s)<br>
-    <strong>{fiche.get('prenom')}</strong>, {fiche.get('age')} ans,
-    <em>{fiche.get('metier')}</em><br>
-    💬 <em>« {fiche.get('punchline')} »</em>
-</div>
-""", unsafe_allow_html=True)
+        punchline_card(
+            fiche, author,
+            nb_votes=vote_counts.get(author, 0),
+            winner=(author in winners),
+            medal=medals[rank] if rank < 3 else f"{rank+1}."
+        )
 
-    st.divider()
-    st.subheader("🎯 Scores cumulés")
-    sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-    for rank, (p, s) in enumerate(sorted_scores):
-        prefix = medals[rank] if rank < 3 else f"{rank+1}."
-        st.markdown(f"{prefix} **{p}** — {s} pts")
+    # Tableau des scores
+    st.markdown("---")
+    st.markdown("**🎯 Scores cumulés**")
+    score_table(scores)
 
-    st.divider()
-
+    st.markdown("---")
     if current_round >= num_rounds:
         if st.button("🎉 Voir le classement final !",
                      use_container_width=True, type="primary"):
@@ -550,56 +699,47 @@ def screen_results(game: dict):
                 update_game({"status": "finished"})
             st.rerun()
     else:
-        if st.button(f"➡️ Lancer le tour {current_round + 1}",
+        if st.button(f"➡️ Tour {current_round + 1}",
                      use_container_width=True, type="primary"):
             if get_game().get("status") == "results":
                 with st.spinner("Chargement du prochain visage..."):
                     try:
-                        img_bytes = fetch_random_face()
-                        img_b64 = base64.b64encode(img_bytes).decode()
+                        img_b64 = base64.b64encode(fetch_random_face()).decode()
                         update_game({
                             "status": "writing",
                             "current_round": current_round + 1,
                             "image_data": img_b64,
-                            "punchlines": {},
-                            "votes": {},
-                            "round_winner": None
+                            "punchlines": {}, "votes": {}, "round_winner": None
                         })
                     except Exception as e:
-                        st.error(f"Erreur chargement image : {e}")
+                        st.error(f"Erreur : {e}")
             st.rerun()
 
-# ── ÉCRAN FINAL ───────────────────────────────────────────────────────────────
+# ── FIN DE PARTIE ─────────────────────────────────────────────────────────────
 
 def screen_finished(game: dict):
     scores = game.get("scores", {}) or {}
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    max_pts = sorted_scores[0][1] if sorted_scores else 0
+    champions = [p for p, s in sorted_scores if s == max_pts]
 
     st.balloons()
-    st.title("🎉 Fin de partie !")
+    st.markdown("## 🎉 Fin de partie !")
 
-    if sorted_scores:
-        max_pts = sorted_scores[0][1]
-        champions = [p for p, s in sorted_scores if s == max_pts]
-        medals = ["🥇", "🥈", "🥉"]
+    if len(champions) == 1:
+        st.markdown(f"### 🏆 Champion : **{champions[0]}** — {max_pts} pts !")
+    else:
+        noms = " & ".join(f"**{c}**" for c in champions)
+        st.markdown(f"### 🤝 Égalité parfaite ! {noms} — {max_pts} pts chacun !")
 
-        if len(champions) == 1:
-            st.markdown(f"## 🏆 Champion : **{champions[0]}** avec **{max_pts} pt(s)** !")
-        else:
-            noms = " & ".join(f"**{c}**" for c in champions)
-            st.markdown(f"## 🤝 Égalité parfaite ! {noms} — **{max_pts} pt(s)** chacun !")
+    st.markdown("---")
+    st.markdown("**Classement final**")
+    score_table(scores, highlight_winners=champions)
 
-    st.subheader("Classement final")
-    medals = ["🥇", "🥈", "🥉"]
-    for rank, (p, s) in enumerate(sorted_scores):
-        prefix = medals[rank] if rank < 3 else f"{rank+1}."
-        st.markdown(f"{prefix} **{p}** — {s} pts")
-
-    st.divider()
+    st.markdown("---")
     if st.button("🔄 Nouvelle partie", use_container_width=True, type="primary"):
-        st.session_state.game_id = None
-        st.session_state.player_name = None
-        st.session_state.is_host = False
+        for key in ["game_id", "player_name", "is_host"]:
+            st.session_state[key] = None if key != "is_host" else False
         st.session_state.home_view = "menu"
         st.rerun()
 
@@ -609,10 +749,7 @@ def main():
     if not st.session_state.game_id:
         screen_home()
         return
-
     game = get_game()
-    status = game.get("status", "waiting")
-
     routing = {
         "waiting":  screen_lobby,
         "writing":  screen_writing,
@@ -620,9 +757,7 @@ def main():
         "results":  screen_results,
         "finished": screen_finished,
     }
-
-    screen_fn = routing.get(status, screen_lobby)
-    screen_fn(game)
+    routing.get(game.get("status", "waiting"), screen_lobby)(game)
 
 if __name__ == "__main__":
     main()
