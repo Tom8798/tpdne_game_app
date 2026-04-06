@@ -22,7 +22,7 @@ st.markdown("""
 /* ── Largeur max centrée ── */
 .block-container {
     max-width: 520px !important;
-    padding: 2rem 1rem 5rem 1rem !important;
+    padding: 3rem 1rem 5rem 1rem !important;
 }
 
 /* Cache le header Streamlit (bandeau avec logo et menu) */
@@ -349,7 +349,7 @@ def punchline_card(fiche: dict, author: str,
 </div>
 """, unsafe_allow_html=True)
     
-    
+
 
 def score_table(scores: dict, highlight_winners=None):
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
